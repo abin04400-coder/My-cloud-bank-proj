@@ -1,0 +1,27 @@
+server {
+    listen 80;
+    server_name _;
+    root /usr/share/nginx/html;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # BACKEND_URL is supplied by the container environment, for example:
+    # http://backend:3000
+    location /api/ {
+        proxy_pass ${BACKEND_URL}/api/;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location ~* \.(css|js|png|jpg|jpeg|svg|ico|woff2?)$ {
+        expires 1h;
+        add_header Cache-Control "public";
+        try_files $uri =404;
+    }
+}

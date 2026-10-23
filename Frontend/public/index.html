@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CloudBank | Demo Banking</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div id="login-screen" class="login-wrap">
+    <form id="login-form" class="login-card">
+      <div class="brand-mark">CB</div>
+      <p class="eyebrow">WELCOME TO</p>
+      <h1>CloudBank</h1>
+      <p class="muted">A cloud banking demo project</p>
+      <label for="email">Email address</label>
+      <input id="email" type="email" placeholder="demo@example.com" autocomplete="username" required>
+      <label for="password">Password</label>
+      <input id="password" type="password" placeholder="Demo password" autocomplete="current-password" required>
+      <button class="btn primary full" type="submit">Enter demo</button>
+      <p class="small muted">Demo only. Do not enter real credentials or financial information.</p>
+    </form>
+  </div>
+
+  <div id="app" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark small-mark">CB</span><span>CloudBank</span></div>
+      <nav>
+        <button class="nav-link active" data-page="dashboard">▦ <span>Dashboard</span></button>
+        <button class="nav-link" data-page="transfers">⇄ <span>Transfers</span></button>
+        <button class="nav-link" data-page="bills">▤ <span>Pay bills</span></button>
+        <button class="nav-link" data-page="loans">◫ <span>Loans</span></button>
+        <button class="nav-link" data-page="security">◇ <span>Security</span></button>
+      </nav>
+      <div class="sidebar-bottom"><span class="status-dot"></span> Demo environment</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div><p class="eyebrow">YOUR MONEY, IN ONE PLACE</p><h2 id="page-title">Dashboard</h2></div>
+        <div class="profile"><div class="avatar">JD</div><div><strong>Jordan Demo</strong><small>Demo customer</small></div><button id="logout" class="text-btn">Log out</button></div>
+      </header>
+      <div class="demo-banner"><strong>Demo mode</strong> — sample data only. No real money moves and no real bank accounts are connected.</div>
+
+      <section id="page-dashboard" class="page">
+        <div class="welcome-row"><div><h1>Good afternoon, Jordan 👋</h1><p class="muted">Here’s what’s happening with your money.</p></div><span class="date-pill" id="today"></span></div>
+        <div class="stats-grid">
+          <article class="balance-card"><div class="card-label">Total available balance <span>•••</span></div><div class="balance" id="balance">₹84,250.75</div><div class="balance-foot"><span>↗ 4.8% this month</span><span>•••• 2841</span></div></article>
+          <article class="stat-card"><div class="stat-icon green">↙</div><p class="muted">Money received</p><h2>₹32,500.00</h2><small class="positive">+12.4% this month</small></article>
+          <article class="stat-card"><div class="stat-icon orange">↗</div><p class="muted">Money spent</p><h2>₹18,240.50</h2><small class="muted">This month</small></article>
+        </div>
+        <div class="section-heading"><h2>Quick actions</h2></div>
+        <div class="actions-grid">
+          <button class="action-card" data-page="transfers"><span class="action-icon blue">⇄</span><strong>Transfer money</strong><small>Send to a beneficiary</small></button>
+          <button class="action-card" data-page="bills"><span class="action-icon purple">▤</span><strong>Pay bills</strong><small>Utilities and services</small></button>
+          <button class="action-card" data-page="loans"><span class="action-icon green">◫</span><strong>Take a loan</strong><small>Explore your options</small></button>
+          <button class="action-card" id="export-csv"><span class="action-icon orange">⇩</span><strong>Statements</strong><small>Download sample CSV</small></button>
+        </div>
+        <div class="content-grid">
+          <article class="panel"><div class="panel-head"><h2>Recent transactions</h2><button class="text-btn" id="view-all">View all</button></div><div class="table-scroll"><table><thead><tr><th>Transaction</th><th>Date</th><th>Status</th><th class="right">Amount</th></tr></thead><tbody id="transactions-body"></tbody></table></div></article>
+          <article class="panel loan-panel"><div class="panel-head"><h2>Active loan</h2><span class="pill success">On track</span></div><p class="muted">Personal loan · #LN-2084</p><h2>₹1,20,000</h2><div class="progress"><span style="width:42%"></span></div><div class="progress-labels"><span>42% repaid</span><span>₹69,600 left</span></div><div class="loan-details"><div><small>Next EMI</small><strong>₹6,250</strong></div><div><small>Due date</small><strong>05 Nov 2026</strong></div></div><button class="btn secondary full" data-page="loans">View loan details</button></article>
+        </div>
+        <article class="panel news-panel"><div class="panel-head"><h2>Finance updates</h2><span class="pill">Sample news</span></div><div class="news-list"><div><span class="news-icon">↗</span><p><strong>Plan your monthly savings</strong><small>Simple habits can help you build a stronger savings routine.</small></p></div><div><span class="news-icon">₹</span><p><strong>Understand loan repayments</strong><small>Review the EMI, interest rate and total repayment before borrowing.</small></p></div></div></article>
+      </section>
+
+      <section id="page-transfers" class="page hidden">
+        <div class="page-intro"><h1>Transfer money</h1><p class="muted">This form simulates a transfer. It does not move money.</p></div>
+        <div class="panel form-panel"><form id="transfer-form"><label for="recipient">Beneficiary name</label><input id="recipient" required placeholder="e.g. Alex Johnson"><label for="account">Account number (demo)</label><input id="account" required placeholder="Demo account number"><label for="amount">Amount (₹)</label><input id="amount" type="number" min="1" step="0.01" required placeholder="0.00"><label for="note">Note (optional)</label><input id="note" placeholder="What is this for?"><button class="btn primary" type="submit">Review demo transfer</button><p id="transfer-message" class="form-message" role="status"></p></form></div>
+      </section>
+
+      <section id="page-bills" class="page hidden">
+        <div class="page-intro"><h1>Pay bills</h1><p class="muted">Choose a sample bill to simulate a payment.</p></div>
+        <div class="bill-grid"><button class="bill-card" data-bill="Electricity"><span class="action-icon orange">ϟ</span><strong>Electricity</strong><small>Due 28 Oct · ₹1,450</small></button><button class="bill-card" data-bill="Internet"><span class="action-icon blue">⌁</span><strong>Internet</strong><small>Due 30 Oct · ₹899</small></button><button class="bill-card" data-bill="Mobile"><span class="action-icon purple">▯</span><strong>Mobile</strong><small>Due 02 Nov · ₹599</small></button></div><p id="bill-message" class="form-message" role="status"></p>
+      </section>
+
+      <section id="page-loans" class="page hidden">
+        <div class="page-intro"><h1>Loan centre</h1><p class="muted">Explore a sample EMI estimate. This is not a loan offer.</p></div>
+        <div class="content-grid"><article class="panel"><h2>EMI calculator</h2><label for="loan-amount">Loan amount (₹)</label><input id="loan-amount" type="number" min="1000" max="5000000" step="1000" value="200000"><label for="interest">Annual interest rate (%)</label><input id="interest" type="number" min="0" max="40" step="0.1" value="10.5"><label for="months">Tenure (months)</label><input id="months" type="number" min="1" max="360" value="36"><div class="emi-result"><small>Estimated monthly EMI</small><h2 id="emi-value">₹6,500</h2><small id="emi-total" class="muted">Estimated total repayment</small></div><button id="calculate-emi" class="btn primary">Calculate EMI</button></article><article class="panel"><h2>Your sample loan</h2><p class="muted">Personal loan · #LN-2084</p><h1>₹1,20,000</h1><p>Remaining principal: <strong>₹69,600</strong></p><div class="progress"><span style="width:42%"></span></div><p class="muted">42% repaid in this sample account.</p><p class="small muted">Real loan applications, approvals and payments are not connected.</p></article></div>
+      </section>
+
+      <section id="page-security" class="page hidden">
+        <div class="page-intro"><h1>Security centre</h1><p class="muted">A visual placeholder for future security features.</p></div>
+        <div class="panel security-row"><span class="action-icon green">✓</span><div><strong>Account protection</strong><p class="muted">Demo screen only — authentication is simulated in this frontend.</p></div><span class="pill">Not connected</span></div>
+        <div class="panel form-panel"><h2>Change demo PIN</h2><p class="muted">Do not use a real banking PIN here.</p><form id="pin-form"><label for="new-pin">New demo PIN</label><input id="new-pin" type="password" inputmode="numeric" minlength="4" maxlength="6" required placeholder="4–6 digits"><button class="btn secondary" type="submit">Simulate PIN change</button><p id="pin-message" class="form-message" role="status"></p></form></div>
+      </section>
+      <footer>CloudBank portfolio project · Frontend demo · Not a real financial service</footer>
+    </main>
+  </div>
+  <script src="/js/api.js"></script><script src="/js/app.js"></script>
+</body>
+</html>
